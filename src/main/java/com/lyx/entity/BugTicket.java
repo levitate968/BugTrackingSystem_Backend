@@ -1,9 +1,13 @@
 package com.lyx.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
+@Data
+@Accessors(chain = true)
 public class BugTicket {
     private String bug_id;
     private String team_id;
