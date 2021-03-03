@@ -3,6 +3,7 @@ package com.lyx.service;
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dto.EmployeeDto;
 import com.lyx.entity.Employee;
+import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +19,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void save(EmployeeDto employeeDto) {
         Employee employee = new Employee();
+        employee.setEmpId(IdGeneratorUtil.generateId());
         employee.setUsername(employeeDto.getUsername());
         employee.setPassword(employeeDto.getPassword());
         employee.setRealName(employeeDto.getRealName());

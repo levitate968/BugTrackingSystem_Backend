@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50733
 File Encoding         : 65001
 
-Date: 2021-02-25 15:53:17
+Date: 2021-03-03 13:32:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_bug_ticket`;
 CREATE TABLE `t_bug_ticket` (
-  `bug_id` varchar(255) NOT NULL,
+  `bug_id` varchar(255),
   `team_id` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
@@ -49,14 +49,14 @@ CREATE TABLE `t_bug_ticket` (
   `space_5` varchar(255) DEFAULT NULL,
   `space_6` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`bug_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for t_bug_ticket_line
 -- ----------------------------
 DROP TABLE IF EXISTS `t_bug_ticket_line`;
 CREATE TABLE `t_bug_ticket_line` (
-  `bug_line_id` varchar(255) NOT NULL,
+  `bug_line_id` varchar(255),
   `bug_id` varchar(255) DEFAULT NULL,
   `note` varchar(255) DEFAULT NULL,
   `add_id` varchar(255) DEFAULT NULL,
@@ -70,14 +70,14 @@ CREATE TABLE `t_bug_ticket_line` (
   `space_5` varchar(255) DEFAULT NULL,
   `space_6` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`bug_line_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for t_employee
 -- ----------------------------
 DROP TABLE IF EXISTS `t_employee`;
 CREATE TABLE `t_employee` (
-  `emp_id` varchar(255) NOT NULL,
+  `emp_id` varchar(255),
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `realname` varchar(255) DEFAULT NULL,
@@ -87,17 +87,17 @@ CREATE TABLE `t_employee` (
   `space_2` varchar(255) DEFAULT NULL,
   `space_3` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`emp_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Table structure for t_team
 -- ----------------------------
 DROP TABLE IF EXISTS `t_team`;
 CREATE TABLE `t_team` (
-  `team_id` varchar(255) NOT NULL,
+  `team_id` varchar(255),
   `name` varchar(255) DEFAULT NULL,
   `space_1` varchar(255) DEFAULT NULL,
   `space_2` varchar(255) DEFAULT NULL,
   `space_3` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`team_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
