@@ -1,11 +1,8 @@
 package com.lyx;
 
 import com.lyx.dto.BugTicketDto;
-import com.lyx.dto.EmployeeDto;
 import com.lyx.entity.BugTicket;
-import com.lyx.entity.Employee;
 import com.lyx.service.BugTicketService;
-import com.lyx.service.EmployeeService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

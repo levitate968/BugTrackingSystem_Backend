@@ -2,34 +2,33 @@
 <mapper namespace="com.lyx.dao.TeamDao">
 
 
-
-    <!--保存用户-->
-    <insert id="save">
-        insert into t_employee values(#{empId},#{username},#{title},#{description},#{statusCode},#{statusName},#{bugLevel})
+    <!--保存小组信息-->
+    <insert id="save" parameterType="com.lyx.entity.Team">
+        insert into t_team(team_id,name)
+        values(#{teamId},#{name})
     </insert>
 
-    <!--根据id查找用户-->
-    <select id="findById" parameterType="String" resultType="com.lyx.entity.Employee">
-        select username,password,realname,post,team_id
-        from t_employee where emp_id = #{empId}
+    <!--查找所有小组-->
+    <select id="findAll" resultType="com.lyx.entity.Team">
+        select team_id,name
+        from t_team
     </select>
 
-    <!--查找所有用户-->
-    <select id="findAll" resultType="com.lyx.entity.Employee">
-        select username,password,realname,post,team_id
-        from t_employee where emp_id = #{empId}
+    <!--根据id查找小组-->
+    <select id="findById" parameterType="String" resultType="com.lyx.entity.Team">
+        select team_id,name
+        from t_team where team_id = #{teamId}
     </select>
 
-    <!--根据id删除用户-->
+    <!--根据id删除小组-->
     <delete id="delete" parameterType="String">
-        delete from t_employee where bug_id = #{bugId}
+        delete from t_team where team_id = #{teamId}
     </delete>
 
-
-    <!--更新用户-->
-    <update id="update" parameterType="com.lyx.entity.BugTicket">
-        update t_bug_ticket set team_id=#{teamId},title=#{title},description=#{description},status_code=#{statusCode},status_name=#{statusName},bug_level=#{bugLevel}
-        where bug_id = #{bugId}
+    <!--更新小组信息-->
+    <update id="update" parameterType="com.lyx.entity.Team">
+        update t_team set name=#{name}
+        where team_id = #{teamId}
     </update>
 
 
