@@ -2,8 +2,8 @@
 <mapper namespace="com.lyx.dao.EmployeeDao">
 
     <!--保存用户-->
-    <insert id="save" parameterType="com.lyx.entity.BugTicket">
-        insert into t_employee values(#{empId},#{username},#{title},#{description},#{statusCode},#{statusName},#{bugLevel})
+    <insert id="save" parameterType="com.lyx.entity.Employee">
+        insert into t_employee values(#{empId},#{username},#{password},#{realName},#{post},#{teamId})
     </insert>
 
     <!--查找所有用户-->
@@ -20,13 +20,13 @@
 
     <!--根据id删除用户-->
     <delete id="delete" parameterType="String">
-        delete from t_employee where bug_id = #{bugId}
+        delete from t_employee where emp_id = #{empId}
     </delete>
 
 
     <!--更新用户-->
     <update id="update" parameterType="com.lyx.entity.BugTicket">
-        update t_bug_ticket set team_id=#{teamId},title=#{title},description=#{description},status_code=#{statusCode},status_name=#{statusName},bug_level=#{bugLevel}
+        update t_bug_ticket set username=#{username},password=#{password},post=#{post},team_id=#{teamId}
         where bug_id = #{bugId}
     </update>
 

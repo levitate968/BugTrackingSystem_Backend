@@ -11,10 +11,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 public class TestBugTicketService {
-
-    //private BugTicketService bugTicketService;
     @Autowired
-    private EmployeeService employeeService;
+    private BugTicketService bugTicketService;
 
     @Test
     public void testSaveBugTicket(){
@@ -26,19 +24,8 @@ public class TestBugTicketService {
         bugTicketDto.setStatusCode("创建");
         bugTicketDto.setStatusName("");
 
-        //bugTicketService.CreateSave(bugTicketDto);
+        bugTicketService.CreateSave(bugTicketDto);
 
     }
 
-    @Test
-    public void testSaveEmployee(){
-        EmployeeDto employeeDto=new EmployeeDto();
-        employeeDto.setUsername("小轩子");
-        employeeDto.setPassword("123456");
-        employeeDto.setRealName("李禹轩");
-        employeeDto.setPost("后端开发");
-        employeeDto.setTeamId("1");
-
-        employeeService.save(employeeDto);
-    }
 }
