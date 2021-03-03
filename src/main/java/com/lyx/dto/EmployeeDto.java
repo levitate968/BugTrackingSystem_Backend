@@ -1,11 +1,9 @@
-package com.lyx.entity;
+package com.lyx.dto;
 
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 @Data
-@Accessors(chain = true)
-public class Employee {
+public class EmployeeDto {
     private String empId;
     private String username;
     private String password;

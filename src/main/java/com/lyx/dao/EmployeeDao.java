@@ -1,0 +1,19 @@
+package com.lyx.dao;
+
+import com.lyx.entity.Employee;
+
+import java.util.List;
+
+public interface EmployeeDao {
+    //保存用户
+    void save(Employee employee);
+
+    //根据id查找用户
+    Employee findById(String id);
+
+    //根据id删除用户
+    void delete(String id);
+
+    //更新用户
+    void update(Employee employee);
+}

@@ -10,20 +10,20 @@
     </select>
 
     <!--保存缺陷追踪表-->
-    <insert id="save" parameterType="com.lyx.entity.BugTicket" useGeneratedKeys="true" keyProperty="bug_id">
-        insert into t_bug_ticket values(#{bug_id},#{team_id},#{title},#{description},#{status_code},#{status_name},#{bug_level})
+    <insert id="save" parameterType="com.lyx.entity.BugTicket" useGeneratedKeys="true" keyProperty="bugId">
+        insert into t_bug_ticket values(#{bugId},#{teamId},#{title},#{description},#{statusCode},#{statusName},#{bugLevel})
     </insert>
 
     <!--根据id删除缺陷追踪表-->
     <delete id="delete" parameterType="String">
-        delete from t_bug_ticket where bug_id = #{bug_id}
+        delete from t_bug_ticket where bug_id = #{bugId}
     </delete>
 
 
     <!--更新缺陷追踪表-->
     <update id="update" parameterType="com.lyx.entity.BugTicket">
-        update t_bug_ticket set team_id=#{team_id},title=#{title},description=#{description},status_code=#{status_code},status_name=#{status_name},bug_level=#{bug_level}
-        where bug_id = #{bug_id}
+        update t_bug_ticket set team_id=#{teamId},title=#{title},description=#{description},status_code=#{statusCode},status_name=#{statusName},bug_level=#{bugLevel}
+        where bug_id = #{bugId}
     </update>
 
 

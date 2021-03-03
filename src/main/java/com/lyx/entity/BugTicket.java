@@ -9,32 +9,32 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class BugTicket {
-    private String bug_id;
-    private String team_id;
+    private String bugId;
+    private String teamId;
     private String title;
     private String description;
-    private String status_code;
-    private String status_name;
-    private String bug_level;
-    private String create_id;
-    private String create_name;
+    private String statusCode;
+    private String statusName;
+    private String bugLevel;
+    private String createId;
+    private String createName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date create_time;
-    private String submit_id;
-    private String submit_name;
+    private Date createTime;
+    private String submitId;
+    private String submitName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date submit_time;
-    private String check_id;
-    private String check_name;
+    private Date submitTime;
+    private String checkId;
+    private String checkName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date check_time;
-    private String deal_id;
-    private String deal_name;
+    private Date checkTime;
+    private String dealId;
+    private String dealName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date deal_time;
-    private String test_id;
-    private String test_name;
+    private Date dealTime;
+    private String testId;
+    private String testName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date test_time;
+    private Date testTime;
 
 }

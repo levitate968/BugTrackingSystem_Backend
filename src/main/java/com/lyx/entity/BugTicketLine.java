@@ -9,11 +9,11 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class BugTicketLine {
-    private String bug_line_id;
-    private String bug_id;
+    private String bugLineId;
+    private String bugId;
     private String note;
-    private String add_id;
-    private String add_name;
+    private String addId;
+    private String addName;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date add_time;
+    private Date addTime;
 }
