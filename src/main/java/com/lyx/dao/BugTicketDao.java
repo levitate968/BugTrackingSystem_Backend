@@ -10,6 +10,9 @@ public interface BugTicketDao {
     //保存缺陷追踪表
     void save(BugTicket bugTicket);
 
+    //创建者保存缺陷追踪表
+    void CreateSave(BugTicket bugTicket);
+
     //查询所有缺陷追踪表
     List<BugTicket> findAll();
 

@@ -20,6 +20,7 @@ import java.util.UUID;
 public class BugTicketServiceImpl implements BugTicketService{
     @Autowired
     private BugTicketDao bugTicketDao;
+    @Autowired
     private EmployeeDao employeeDao;
 
     @Override
@@ -31,16 +32,16 @@ public class BugTicketServiceImpl implements BugTicketService{
         BugTicket bugTicket = new BugTicket();
         bugTicket.setBugId(IdGeneratorUtil.generateId());
         bugTicket.setTeamId(bugTicketDto.getTeamId());
-        bugTicket.setTitle(bugTicket.getTitle());
-        bugTicket.setDescription(bugTicket.getDescription());
-        bugTicket.setStatusCode(bugTicket.getStatusCode());
+        bugTicket.setTitle(bugTicketDto.getTitle());
+        bugTicket.setDescription(bugTicketDto.getDescription());
+        bugTicket.setStatusCode(bugTicketDto.getStatusCode());
         //TODO 从静态文件中对照StatusCode获取StatusName
-        bugTicket.setBugLevel(bugTicket.getBugLevel());
-        bugTicket.setCreateId(bugTicketDto.getUserId());
+        bugTicket.setBugLevel(bugTicketDto.getBugLevel());
+        bugTicket.setCreateId(employee.getEmpId());
         bugTicket.setCreateName(employee.getRealName());
         bugTicket.setCreateTime(new Date());
 
-        bugTicketDao.save(bugTicket);
+        bugTicketDao.CreateSave(bugTicket);
     }
 
     @Override
@@ -64,11 +65,11 @@ public class BugTicketServiceImpl implements BugTicketService{
         BugTicket bugTicket = new BugTicket();
         bugTicket.setBugId(bugTicketDto.getBugId());
         bugTicket.setTeamId(bugTicketDto.getTeamId());
-        bugTicket.setTitle(bugTicket.getTitle());
-        bugTicket.setDescription(bugTicket.getDescription());
-        bugTicket.setStatusCode(bugTicket.getStatusCode());
+        bugTicket.setTitle(bugTicketDto.getTitle());
+        bugTicket.setDescription(bugTicketDto.getDescription());
+        bugTicket.setStatusCode(bugTicketDto.getStatusCode());
         //TODO 从静态文件中对照StatusCode获取StatusName
-        bugTicket.setBugLevel(bugTicket.getBugLevel());
+        bugTicket.setBugLevel(bugTicketDto.getBugLevel());
 
         bugTicketDao.update(bugTicket);
     }
