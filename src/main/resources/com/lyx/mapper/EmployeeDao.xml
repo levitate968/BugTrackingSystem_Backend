@@ -15,7 +15,7 @@
 
     <!--根据id查找用户-->
     <select id="findById" parameterType="String" resultType="com.lyx.entity.Employee">
-        select username,password,realname,post,team_id
+        select emp_id,username,password,realname,post,team_id
         from t_employee where emp_id = #{empId}
     </select>
 

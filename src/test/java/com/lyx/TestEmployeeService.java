@@ -32,7 +32,12 @@ public class TestEmployeeService {
 
     @Test
     public void testFindById(){
-        Employee employee=employeeService.findById("a88a807b3101465eae6629669fd30a4f");
-        employee.toString();
+        Employee employee=employeeService.findById("da6e5f94dd0244fda674018167ee4e7b");
+        System.out.println(employee.toString());
+    }
+
+    @Test
+    public void testDelete(){
+        employeeService.delete("a88a807b3101465eae6629669fd30a4f");
     }
 }
