@@ -50,6 +50,11 @@ public class BugTicketServiceImpl implements BugTicketService{
     }
 
     @Override
+    public BugTicket findById(String id) {
+        return bugTicketDao.findById(id);
+    }
+
+    @Override
     public void delete(String id) {
         bugTicketDao.delete(id);
     }

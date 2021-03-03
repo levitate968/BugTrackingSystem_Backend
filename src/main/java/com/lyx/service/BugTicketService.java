@@ -12,6 +12,9 @@ public interface BugTicketService {
     //查询所有缺陷追踪表
     List<BugTicket> findAll();
 
+    //根据id查找缺陷追踪表
+    BugTicket findById(String id);
+
     //根据id删除缺陷追踪表
     void delete(String id);
 

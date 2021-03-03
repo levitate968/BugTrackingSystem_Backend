@@ -4,9 +4,13 @@ import com.lyx.dao.EmployeeDao;
 import com.lyx.dto.EmployeeDto;
 import com.lyx.entity.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
+@Transactional
 public class EmployeeServiceImpl implements EmployeeService{
     @Autowired
     private EmployeeDao employeeDao;
@@ -21,6 +25,11 @@ public class EmployeeServiceImpl implements EmployeeService{
         employee.setTeamId(employeeDto.getTeamId());
 
         employeeDao.save(employee);
+    }
+
+    @Override
+    public List<Employee> findAll() {
+        return employeeDao.findAll();
     }
 
     @Override

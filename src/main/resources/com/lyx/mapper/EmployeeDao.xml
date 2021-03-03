@@ -1,18 +1,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lyx.dao.EmployeeDao">
 
+    <!--保存用户-->
+    <insert id="save" parameterType="com.lyx.entity.BugTicket">
+        insert into t_employee values(#{empId},#{username},#{title},#{description},#{statusCode},#{statusName},#{bugLevel})
+    </insert>
 
-
-    <!--根据id查找用户-->
-    <select id="findById" resultType="com.lyx.entity.Employee">
+    <!--查找所有用户-->
+    <select id="findAll" resultType="com.lyx.entity.Employee">
         select username,password,realname,post,team_id
         from t_employee where emp_id = #{empId}
     </select>
 
-    <!--保存用户-->
-    <insert id="save" parameterType="com.lyx.entity.BugTicket" useGeneratedKeys="true" keyProperty="bugId">
-        insert into t_employee values(#{empId},#{username},#{title},#{description},#{statusCode},#{statusName},#{bugLevel})
-    </insert>
+    <!--根据id查找用户-->
+    <select id="findById" parameterType="String" resultType="com.lyx.entity.Employee">
+        select username,password,realname,post,team_id
+        from t_employee where emp_id = #{empId}
+    </select>
 
     <!--根据id删除用户-->
     <delete id="delete" parameterType="String">

@@ -1,8 +1,6 @@
 package com.lyx.service;
 
-import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.EmployeeDto;
-import com.lyx.entity.BugTicket;
 import com.lyx.entity.Employee;
 
 import java.util.List;
@@ -10,6 +8,9 @@ import java.util.List;
 public interface EmployeeService {
     //保存用户信息
     void save(EmployeeDto employeeDto);
+
+    //查找所有用户
+    List<Employee> findAll();
 
     //根据id查询用户
     Employee findById(String id);
