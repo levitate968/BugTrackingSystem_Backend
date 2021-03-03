@@ -26,9 +26,9 @@
 
 
     <!--更新用户-->
-    <update id="update" parameterType="com.lyx.entity.BugTicket">
-        update t_bug_ticket set username=#{username},password=#{password},post=#{post},team_id=#{teamId}
-        where bug_id = #{bugId}
+    <update id="update" parameterType="com.lyx.entity.Employee">
+        update t_employee set username=#{username},password=#{password},post=#{post},team_id=#{teamId}
+        where emp_id = #{empId}
     </update>
 
 

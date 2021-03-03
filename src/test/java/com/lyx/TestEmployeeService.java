@@ -40,4 +40,16 @@ public class TestEmployeeService {
     public void testDelete(){
         employeeService.delete("a88a807b3101465eae6629669fd30a4f");
     }
+
+    @Test
+    public void testUpdate(){
+        EmployeeDto employeeDto=new EmployeeDto();
+        employeeDto.setEmpId("da6e5f94dd0244fda674018167ee4e7b");
+        employeeDto.setUsername("小轩子");
+        employeeDto.setPassword("990122");
+        employeeDto.setPost("后端开发");
+        employeeDto.setTeamId("1");
+
+        employeeService.update(employeeDto);
+    }
 }

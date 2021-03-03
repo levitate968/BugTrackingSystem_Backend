@@ -47,6 +47,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void update(EmployeeDto employeeDto) {
         Employee employee = new Employee();
+        employee.setEmpId(employeeDto.getEmpId());
         employee.setUsername(employeeDto.getUsername());
         employee.setPassword(employeeDto.getPassword());
         employee.setPost(employeeDto.getPost());
