@@ -62,7 +62,6 @@ CREATE TABLE `t_bug_ticket_line` (
   `add_id` varchar(255) DEFAULT NULL,
   `add_name` varchar(255) DEFAULT NULL,
   `add_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `team_id` varchar(255) DEFAULT NULL,
   `space_1` varchar(255) DEFAULT NULL,
   `space_2` varchar(255) DEFAULT NULL,
   `space_3` varchar(255) DEFAULT NULL,

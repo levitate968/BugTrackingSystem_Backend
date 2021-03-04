@@ -1,0 +1,30 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyx.dao.BugTicketLineDao">
+
+
+    <!--保存缺陷追踪表-->
+    <insert id="save" parameterType="com.lyx.entity.BugTicketLine">
+        insert into t_bug_ticket_line(bug_line_id,bug_id,note,add_id,add_name,add_time)
+        values(#{bugLineId},#{bugId},#{note},#{addId},#{addName},#{addTime})
+    </insert>
+
+    <!--查询所有缺陷追踪表-->
+    <select id="findAll" resultType="com.lyx.entity.BugTicketLine">
+        select bug_line_id,bug_id,note,add_id,add_name,add_time
+        from t_bug_ticket_line
+    </select>
+
+    <!--根据id删除缺陷追踪表-->
+    <delete id="delete" parameterType="String">
+        delete from t_bug_ticket_line where bug_line_id = #{bugLineId}
+    </delete>
+
+
+    <!--更新缺陷追踪表-->
+    <update id="update" parameterType="com.lyx.entity.BugTicketLine">
+        update t_bug_ticket_line set note = #{note}
+        where bug_line_id = #{bugLineId}
+    </update>
+
+
+</mapper>
