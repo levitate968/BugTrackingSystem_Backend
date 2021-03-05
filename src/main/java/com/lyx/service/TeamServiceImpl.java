@@ -20,7 +20,7 @@ public class TeamServiceImpl implements TeamService{
     public void save(TeamDto teamDto) {
         Team team=new Team();
         team.setTeamId(IdGeneratorUtil.generateId());
-        team.setName(teamDto.getName());
+        team.setTeamName(teamDto.getTeamName());
 
         teamDao.save(team);
     }
@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService{
     public void update(TeamDto teamDto) {
         Team team=new Team();
         team.setTeamId(teamDto.getTeamId());
-        team.setName(teamDto.getName());
+        team.setTeamName(teamDto.getTeamName());
 
         teamDao.update(team);
     }

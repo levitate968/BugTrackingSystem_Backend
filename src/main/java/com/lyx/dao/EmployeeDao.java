@@ -1,5 +1,7 @@
 package com.lyx.dao;
 
+import com.lyx.dto.EmployeeDto;
+import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,4 +23,7 @@ public interface EmployeeDao {
 
     //更新用户信息
     void update(Employee employee);
+
+    //根据(组名,姓名,id)条件查询员工
+    List<Employee> findList(EmployeeQueryDto queryDto);
 }

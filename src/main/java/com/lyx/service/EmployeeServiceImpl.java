@@ -2,12 +2,15 @@ package com.lyx.service;
 
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dto.EmployeeDto;
+import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.Employee;
 import com.lyx.utils.IdGeneratorUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -55,4 +58,12 @@ public class EmployeeServiceImpl implements EmployeeService{
 
         employeeDao.update(employee);
     }
+
+    @Override
+    public List<Employee> findList(EmployeeQueryDto queryDto) {
+        List<Employee> list = employeeDao.findList(queryDto);
+        return list;
+    }
+
+
 }

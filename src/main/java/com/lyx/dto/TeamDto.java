@@ -13,5 +13,5 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class TeamDto {
     private String teamId;
-    private String name;
+    private String teamName;
 }

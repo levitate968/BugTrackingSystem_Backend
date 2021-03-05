@@ -4,19 +4,19 @@
 
     <!--保存小组信息-->
     <insert id="save" parameterType="com.lyx.entity.Team">
-        insert into t_team(team_id,name)
-        values(#{teamId},#{name})
+        insert into t_team(team_id,teamName)
+        values(#{teamId},#{teamName})
     </insert>
 
     <!--查找所有小组-->
     <select id="findAll" resultType="com.lyx.entity.Team">
-        select team_id,name
+        select team_id,team_name
         from t_team
     </select>
 
     <!--根据id查找小组-->
     <select id="findById" parameterType="String" resultType="com.lyx.entity.Team">
-        select team_id,name
+        select team_id,team_name
         from t_team where team_id = #{teamId}
     </select>
 
@@ -27,7 +27,7 @@
 
     <!--更新小组信息-->
     <update id="update" parameterType="com.lyx.entity.Team">
-        update t_team set name=#{name}
+        update t_team set team_name=#{teamName}
         where team_id = #{teamId}
     </update>
 

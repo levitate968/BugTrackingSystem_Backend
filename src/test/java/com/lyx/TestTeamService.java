@@ -17,7 +17,7 @@ public class TestTeamService {
     @Test
     public void testSave(){
         TeamDto teamDto=new TeamDto();
-        teamDto.setName("java组");
+        teamDto.setTeamName("java组");
 
         teamService.save(teamDto);
     }
@@ -42,7 +42,7 @@ public class TestTeamService {
     public void testUpdate(){
         TeamDto teamDto=new TeamDto();
         teamDto.setTeamId("a8567ea3f252493e836b1535151f5268");
-        teamDto.setName("JAVA组");
+        teamDto.setTeamName("JAVA组");
 
         teamService.update(teamDto);
     }
