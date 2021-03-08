@@ -9,20 +9,20 @@
     </insert>
 
     <!--创建者保存缺陷追踪表-->
-    <insert id="CreateSave" parameterType="com.lyx.entity.BugTicket">
-        insert into t_bug_ticket(bug_id,team_id,title,description,status_code,status_name,bug_level,create_id,create_name,create_time)
-        values(#{bugId},#{teamId},#{title},#{description},#{statusCode},#{statusName},#{bugLevel},#{createId},#{createName},#{createTime})
+    <insert id="submitSave" parameterType="com.lyx.entity.BugTicket">
+        insert into t_bug_ticket(bug_id,team_id,title,description,status_code,status_name,bug_level,submit_id,submit_name,submit_time)
+        values(#{bugId},#{teamId},#{title},#{description},#{statusCode},#{statusName},#{bugLevel},#{submitId},#{submitName},#{submitTime})
     </insert>
 
     <!--查询所有缺陷追踪表-->
     <select id="findAll" resultType="com.lyx.entity.BugTicket">
-        select bug_id,team_id,title,description,status_code,status_name,bug_level,create_id,create_name,create_time,submit_id,submit_name,submit_time,check_id,check_name,check_time,deal_id,deal_name,deal_time,test_id,test_name,test_time
+        select bug_id,team_id,title,description,status_code,status_name,bug_level,submit_id,submit_name,submit_time,check_id,check_name,check_time,deal_id,deal_name,deal_time
         from t_bug_ticket
     </select>
 
     <!--根据id查找缺陷追踪表-->
     <select id="findById" parameterType="String" resultType="com.lyx.entity.BugTicket">
-        select bug_id,team_id,title,description,status_code,status_name,bug_level,create_id,create_name,create_time,submit_id,submit_name,submit_time,check_id,check_name,check_time,deal_id,deal_name,deal_time,test_id,test_name,test_time
+        select bug_id,team_id,title,description,status_code,status_name,bug_level,submit_id,submit_name,submit_time,check_id,check_name,check_time,deal_id,deal_name,deal_time
         from t_bug_ticket where bug_id = #{bugId}
     </select>
 

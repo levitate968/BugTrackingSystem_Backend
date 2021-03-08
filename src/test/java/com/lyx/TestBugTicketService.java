@@ -13,7 +13,7 @@ public class TestBugTicketService {
     private BugTicketService bugTicketService;
 
     @Test
-    public void testCreateSave(){
+    public void testSubmitSave(){
         BugTicketDto bugTicketDto=new BugTicketDto();
         bugTicketDto.setTeamId("1");
         bugTicketDto.setTitle("Test");
@@ -23,7 +23,7 @@ public class TestBugTicketService {
         bugTicketDto.setBugLevel("困难");
         bugTicketDto.setUserId("da6e5f94dd0244fda674018167ee4e7b");
 
-        bugTicketService.CreateSave(bugTicketDto);
+        bugTicketService.submitSave(bugTicketDto);
     }
 
     @Test

@@ -22,10 +22,6 @@ public class BugTicket {
     private String statusCode;
     private String statusName;
     private String bugLevel;
-    private String createId;
-    private String createName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date createTime;
     private String submitId;
     private String submitName;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -38,9 +34,5 @@ public class BugTicket {
     private String dealName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dealTime;
-    private String testId;
-    private String testName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date testTime;
 
 }

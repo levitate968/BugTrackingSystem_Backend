@@ -25,7 +25,7 @@ public class BugTicketServiceImpl implements BugTicketService{
 
     @Override
     @Transactional
-    public void CreateSave(BugTicketDto bugTicketDto) {
+    public void submitSave(BugTicketDto bugTicketDto) {
         String userId = bugTicketDto.getUserId();
         Employee employee = employeeDao.findById(userId);
 
@@ -37,11 +37,11 @@ public class BugTicketServiceImpl implements BugTicketService{
         bugTicket.setStatusCode(bugTicketDto.getStatusCode());
         //TODO 从静态文件中对照StatusCode获取StatusName
         bugTicket.setBugLevel(bugTicketDto.getBugLevel());
-        bugTicket.setCreateId(employee.getEmpId());
-        bugTicket.setCreateName(employee.getRealName());
-        bugTicket.setCreateTime(new Date());
+        bugTicket.setSubmitId(employee.getEmpId());
+        bugTicket.setSubmitName(employee.getRealName());
+        bugTicket.setSubmitTime(new Date());
 
-        bugTicketDao.CreateSave(bugTicket);
+        bugTicketDao.submitSave(bugTicket);
     }
 
     @Override

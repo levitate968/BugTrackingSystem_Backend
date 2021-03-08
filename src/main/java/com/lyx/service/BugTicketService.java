@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface BugTicketService {
     //创建者保存缺陷追踪表
-    void CreateSave(BugTicketDto bugTicketDto);
+    void submitSave(BugTicketDto bugTicketDto);
 
     //查询所有缺陷追踪表
     List<BugTicket> findAll();
