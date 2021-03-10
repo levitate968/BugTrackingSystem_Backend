@@ -13,17 +13,7 @@ public class TestEmployeeService {
     @Autowired
     private EmployeeService employeeService;
 
-    @Test
-    public void testSave(){
-        EmployeeDto employeeDto=new EmployeeDto();
-        employeeDto.setUsername("小轩子");
-        employeeDto.setPassword("123456");
-        employeeDto.setRealName("李禹轩");
-        employeeDto.setPost("后端开发");
-        employeeDto.setTeamId("1");
 
-        employeeService.save(employeeDto);
-    }
 
     @Test
     public void testFindAll(){
@@ -38,17 +28,17 @@ public class TestEmployeeService {
 
     @Test
     public void testDelete(){
-        employeeService.delete("a88a807b3101465eae6629669fd30a4f");
+        employeeService.delete("da6e5f94dd0244fda674018167ee4e7b");
     }
 
     @Test
     public void testUpdate(){
         EmployeeDto employeeDto=new EmployeeDto();
-        employeeDto.setEmpId("da6e5f94dd0244fda674018167ee4e7b");
+        employeeDto.setEmpId("9e384a11584d44e6bf7c5a53a4feb911");
         employeeDto.setUsername("小轩子");
         employeeDto.setPassword("990122");
-        employeeDto.setPost("后端开发");
-        employeeDto.setTeamId("1");
+        employeeDto.setPost("小组组长");
+        employeeDto.setTeamId("a8567ea3f252493e836b1535151f5268");
 
         employeeService.update(employeeDto);
     }

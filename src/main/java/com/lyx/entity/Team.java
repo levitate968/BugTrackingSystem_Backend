@@ -14,4 +14,5 @@ import lombok.experimental.Accessors;
 public class Team {
     private String teamId;
     private String teamName;
+    private String teamLeaderId;
 }

@@ -2,7 +2,8 @@
 <mapper namespace="com.lyx.dao.EmployeeDao">
 
     <!--保存员工信息-->
-    <insert id="save" parameterType="com.lyx.entity.Employee">
+    <insert id="save" parameterType="com.lyx.entity.Employee"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_employee(emp_id,username,password,realname,post,team_id)
         values(#{empId},#{username},#{password},#{realName},#{post},#{teamId})
     </insert>

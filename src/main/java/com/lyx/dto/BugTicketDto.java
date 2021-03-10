@@ -23,4 +23,6 @@ public class BugTicketDto {
     private String statusName;
     private String bugLevel;
     private String userId;
+    private String designateId;
+    private String designateName;
 }

@@ -10,7 +10,7 @@ import java.util.List;
 @Mapper
 public interface EmployeeDao {
     //保存用户
-    void save(Employee employee);
+    Integer save(Employee employee);
 
     //查找所有用户
     List<Employee> findAll();

@@ -34,5 +34,7 @@ public class BugTicket {
     private String dealName;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dealTime;
+    private String designateId;
+    private String designateName;
 
 }

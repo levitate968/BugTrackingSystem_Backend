@@ -1,7 +1,10 @@
 package com.lyx.service;
 
 import com.lyx.dto.BugTicketDto;
+import com.lyx.dto.query.BugTicketQueryDto;
+import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.BugTicket;
+import com.lyx.entity.Employee;
 
 import java.util.List;
 
@@ -21,4 +24,6 @@ public interface BugTicketService {
     //更新缺陷追踪表(只能更新teamId,title,description,statusCode,statusName,bugLevel)
     void update(BugTicketDto bugTicketDto);
 
+    //根据(题目，指派人，状态,小组id)条件查询缺陷追踪表
+    List<BugTicket> findList(BugTicketQueryDto queryDto);
 }

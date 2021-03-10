@@ -7,9 +7,6 @@ import com.lyx.entity.Employee;
 import java.util.List;
 
 public interface EmployeeService {
-    //保存员工信息
-    void save(EmployeeDto employeeDto);
-
     //查找所有员工
     List<Employee> findAll();
 
@@ -24,4 +21,7 @@ public interface EmployeeService {
 
     //根据(组名,姓名,id)条件查询员工
     List<Employee> findList(EmployeeQueryDto queryDto);
+
+    //新建用户
+    Integer createEmployee (EmployeeDto employeeDto);
 }

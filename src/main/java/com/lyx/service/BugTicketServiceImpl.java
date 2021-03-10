@@ -3,6 +3,7 @@ package com.lyx.service;
 import com.lyx.dao.BugTicketDao;
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dto.BugTicketDto;
+import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.entity.BugTicket;
 import com.lyx.entity.Employee;
 import com.lyx.utils.IdGeneratorUtil;
@@ -72,5 +73,11 @@ public class BugTicketServiceImpl implements BugTicketService{
         bugTicket.setBugLevel(bugTicketDto.getBugLevel());
 
         bugTicketDao.update(bugTicket);
+    }
+
+    @Override
+    public List<BugTicket> findList(BugTicketQueryDto queryDto) {
+        List<BugTicket> list = bugTicketDao.findList(queryDto);
+        return list;
     }
 }

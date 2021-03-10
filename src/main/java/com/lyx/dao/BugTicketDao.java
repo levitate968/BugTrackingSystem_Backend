@@ -1,6 +1,9 @@
 package com.lyx.dao;
 
+import com.lyx.dto.query.BugTicketQueryDto;
+import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.BugTicket;
+import com.lyx.entity.Employee;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -44,4 +47,11 @@ public interface BugTicketDao {
      * @param bugTicket
      */
     void update(BugTicket bugTicket);
+
+    /**
+     *根据(题目，指派人，状态,小组id)条件查询缺陷追踪表
+     * @param queryDto
+     * @return
+     */
+    List<BugTicket> findList(BugTicketQueryDto queryDto);
 }

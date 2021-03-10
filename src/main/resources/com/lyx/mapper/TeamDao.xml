@@ -4,8 +4,8 @@
 
     <!--保存小组信息-->
     <insert id="save" parameterType="com.lyx.entity.Team">
-        insert into t_team(team_id,teamName)
-        values(#{teamId},#{teamName})
+        insert into t_team(team_id,team_name,team_leader_id)
+        values(#{teamId},#{teamName},#{teamLeaderId})
     </insert>
 
     <!--查找所有小组-->
@@ -31,5 +31,26 @@
         where team_id = #{teamId}
     </update>
 
+    <!--根据(小组id，组名，员工id，员工姓名)条件查询小组-->
+    <select id="findList" parameterType="com.lyx.dto.query.TeamQueryDto" resultType="com.lyx.entity.Team">
+        SELECT t.team_id,t.team_name,t.team_leader_id
+        FROM t_team t
+        LEFT JOIN t_employee e
+        ON t.team_id = e.team_id
+        <where>
+            <if test="teamId != null and teamId != ''">
+                AND t.team_id = #{teamId}
+            </if>
+            <if test="teamName != null and teamName != ''">
+                AND t.team_name like CONCAT('%',#{teamName},'%')
+            </if>
+            <if test="empId != null and empId != ''">
+                AND e.emp_id = #{empId}
+            </if>
+            <if test="realName != null and realName != ''">
+                AND e.realname like CONCAT('%',#{realName},'%')
+            </if>
+        </where>
+    </select>
 
 </mapper>

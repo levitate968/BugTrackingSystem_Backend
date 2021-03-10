@@ -1,6 +1,9 @@
 package com.lyx.service;
 
 import com.lyx.dto.TeamDto;
+import com.lyx.dto.query.EmployeeQueryDto;
+import com.lyx.dto.query.TeamQueryDto;
+import com.lyx.entity.Employee;
 import com.lyx.entity.Team;
 
 import java.util.List;
@@ -20,4 +23,7 @@ public interface TeamService {
 
     //更新小组信息
     void update(TeamDto teamDto);
+
+    //根据(小组id，组名，员工id，员工姓名)条件查询小组
+    List<Team> findList(TeamQueryDto queryDto);
 }

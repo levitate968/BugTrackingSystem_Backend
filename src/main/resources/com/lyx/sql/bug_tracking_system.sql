@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50733
 File Encoding         : 65001
 
-Date: 2021-03-03 13:32:45
+Date: 2021-03-08 14:29:51
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,16 +20,13 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_bug_ticket`;
 CREATE TABLE `t_bug_ticket` (
-  `bug_id` varchar(255),
+  `bug_id` varchar(255) NOT NULL,
   `team_id` varchar(255) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `description` varchar(255) DEFAULT NULL,
   `status_code` varchar(255) DEFAULT NULL,
   `status_name` varchar(255) DEFAULT NULL,
   `bug_level` varchar(255) DEFAULT NULL,
-  `create_id` varchar(255) DEFAULT NULL,
-  `create_name` varchar(255) DEFAULT NULL,
-  `create_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `submit_id` varchar(255) DEFAULT NULL,
   `submit_name` varchar(255) DEFAULT NULL,
   `submit_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
@@ -39,9 +36,6 @@ CREATE TABLE `t_bug_ticket` (
   `deal_id` varchar(255) DEFAULT NULL,
   `deal_name` varchar(255) DEFAULT NULL,
   `deal_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
-  `test_id` varchar(255) DEFAULT NULL,
-  `test_name` varchar(255) DEFAULT NULL,
-  `test_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `space_1` varchar(255) DEFAULT NULL,
   `space_2` varchar(255) DEFAULT NULL,
   `space_3` varchar(255) DEFAULT NULL,
@@ -56,7 +50,7 @@ CREATE TABLE `t_bug_ticket` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_bug_ticket_line`;
 CREATE TABLE `t_bug_ticket_line` (
-  `bug_line_id` varchar(255),
+  `bug_line_id` varchar(255) NOT NULL,
   `bug_id` varchar(255) DEFAULT NULL,
   `note` varchar(255) DEFAULT NULL,
   `add_id` varchar(255) DEFAULT NULL,
@@ -76,7 +70,7 @@ CREATE TABLE `t_bug_ticket_line` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_employee`;
 CREATE TABLE `t_employee` (
-  `emp_id` varchar(255),
+  `emp_id` varchar(255) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
   `realname` varchar(255) DEFAULT NULL,
@@ -93,8 +87,8 @@ CREATE TABLE `t_employee` (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_team`;
 CREATE TABLE `t_team` (
-  `team_id` varchar(255),
-  `name` varchar(255) DEFAULT NULL,
+  `team_id` varchar(255) NOT NULL,
+  `team_name` varchar(255) DEFAULT NULL,
   `space_1` varchar(255) DEFAULT NULL,
   `space_2` varchar(255) DEFAULT NULL,
   `space_3` varchar(255) DEFAULT NULL,

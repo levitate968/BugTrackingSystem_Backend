@@ -2,6 +2,9 @@ package com.lyx.service;
 
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.TeamDto;
+import com.lyx.dto.query.EmployeeQueryDto;
+import com.lyx.dto.query.TeamQueryDto;
+import com.lyx.entity.Employee;
 import com.lyx.entity.Team;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +22,9 @@ public class TeamServiceImpl implements TeamService{
     @Override
     public void save(TeamDto teamDto) {
         Team team=new Team();
-        team.setTeamId(IdGeneratorUtil.generateId());
         team.setTeamName(teamDto.getTeamName());
-
+        team.setTeamLeaderId(teamDto.getTeamLeaderId());
+        team.setTeamId(teamDto.getTeamId());
         teamDao.save(team);
     }
 
@@ -48,4 +51,12 @@ public class TeamServiceImpl implements TeamService{
 
         teamDao.update(team);
     }
+
+    @Override
+    public List<Team> findList(TeamQueryDto queryDto) {
+        List<Team> list = teamDao.findList(queryDto);
+        return list;
+    }
+
+
 }
