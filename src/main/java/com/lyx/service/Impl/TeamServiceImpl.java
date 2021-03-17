@@ -49,6 +49,7 @@ public class TeamServiceImpl implements TeamService {
         Team team=new Team();
         team.setTeamId(teamDto.getTeamId());
         team.setTeamName(teamDto.getTeamName());
+        team.setTeamLeaderId(teamDto.getTeamLeaderId());
 
         teamDao.update(team);
     }

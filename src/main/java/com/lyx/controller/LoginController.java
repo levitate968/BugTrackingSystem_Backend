@@ -6,6 +6,7 @@ import com.lyx.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -17,8 +18,8 @@ public class LoginController {
 
     //用户登录
     @PostMapping("/login")
-    public ResponseDto<String> login(@RequestBody EmployeeQueryDto employeeDto){
-        return  employeeService.login(employeeDto);
+    public ResponseDto<String> login(@RequestBody EmployeeQueryDto employeeDto, HttpServletRequest request){
+        return  employeeService.login(employeeDto,request);
     }
 
     //获取用户登录信息

@@ -5,6 +5,7 @@ import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.Employee;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -25,8 +26,8 @@ public interface EmployeeService {
     List<Employee> findList(EmployeeQueryDto queryDto);
 
     //新建用户
-    Integer createEmployee (EmployeeDto employeeDto);
+    ResponseDto<String> createEmployee (EmployeeDto employeeDto);
 
     //用户登录
-    ResponseDto<String> login(EmployeeQueryDto employeeDto);
+    ResponseDto<String> login(EmployeeQueryDto employeeDto, HttpServletRequest request);
 }

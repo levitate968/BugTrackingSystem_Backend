@@ -27,7 +27,7 @@
 
     <!--更新小组信息-->
     <update id="update" parameterType="com.lyx.entity.Team">
-        update t_team set team_name=#{teamName}
+        update t_team set team_name=#{teamName},team_leader_id=#{teamLeaderId}
         where team_id = #{teamId}
     </update>
 
