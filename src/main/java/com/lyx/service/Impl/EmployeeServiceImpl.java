@@ -1,4 +1,4 @@
-package com.lyx.service;
+package com.lyx.service.Impl;
 
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
@@ -9,18 +9,22 @@ import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.dto.query.TeamQueryDto;
 import com.lyx.entity.Employee;
 import com.lyx.entity.Team;
+import com.lyx.service.EmployeeService;
+import com.lyx.service.TeamService;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 @Transactional
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeDao employeeDao;
 
@@ -29,6 +33,9 @@ public class EmployeeServiceImpl implements EmployeeService{
 
     @Autowired
     private TeamDao teamDao;
+
+    @Autowired
+    private EmployeeService employeeService;
 
 
     @Override
@@ -101,5 +108,24 @@ public class EmployeeServiceImpl implements EmployeeService{
         return employeeDao.save(employee);
     }
 
+    @Override
+    public ResponseDto<String> login(EmployeeQueryDto employeeDto) {
+        //登录逻辑函数
+        String msg;
+        try {
+            List<Employee> list = employeeDao.findList(employeeDto);
+            if (list.size() == 1) {
+                msg = list.get(0).getUsername() + "登录成功，欢迎您!";
+                return ResponseDto.getSuccessResponseDto(msg);
+            } else {
+                msg = "用户名或密码错误";
+                return ResponseDto.getFailResponseDto(msg);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseDto.getFailResponseDto(e.getMessage());
+        }
+    }
 
 }

@@ -1,4 +1,4 @@
-package com.lyx.service;
+package com.lyx.service.Impl;
 
 import com.lyx.dao.BugTicketDao;
 import com.lyx.dao.EmployeeDao;
@@ -6,6 +6,7 @@ import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.entity.BugTicket;
 import com.lyx.entity.Employee;
+import com.lyx.service.BugTicketService;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import java.util.UUID;
 
 @Service
 @Transactional
-public class BugTicketServiceImpl implements BugTicketService{
+public class BugTicketServiceImpl implements BugTicketService {
     @Autowired
     private BugTicketDao bugTicketDao;
     @Autowired
@@ -79,5 +80,14 @@ public class BugTicketServiceImpl implements BugTicketService{
     public List<BugTicket> findList(BugTicketQueryDto queryDto) {
         List<BugTicket> list = bugTicketDao.findList(queryDto);
         return list;
+    }
+
+    @Override
+    @Transactional
+    public Integer createBugTicket(BugTicketDto bugTicketDto) {
+        //TODO
+        BugTicket bugTicket = new BugTicket();
+        //bugTicketDao.createBugTicket(bugTicket);
+        return bugTicketDao.submitSave(bugTicket);
     }
 }

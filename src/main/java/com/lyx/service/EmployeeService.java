@@ -1,9 +1,11 @@
 package com.lyx.service;
 
 import com.lyx.dto.EmployeeDto;
+import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.Employee;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 public interface EmployeeService {
@@ -24,4 +26,7 @@ public interface EmployeeService {
 
     //新建用户
     Integer createEmployee (EmployeeDto employeeDto);
+
+    //用户登录
+    ResponseDto<String> login(EmployeeQueryDto employeeDto);
 }

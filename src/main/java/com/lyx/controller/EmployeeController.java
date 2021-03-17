@@ -2,11 +2,8 @@ package com.lyx.controller;
 
 import com.lyx.dto.EmployeeDto;
 import com.lyx.dto.ResponseDto;
-import com.lyx.dto.TeamDto;
 import com.lyx.dto.query.EmployeeQueryDto;
-import com.lyx.dto.query.TeamQueryDto;
 import com.lyx.entity.Employee;
-import com.lyx.entity.Team;
 import com.lyx.service.EmployeeService;
 import com.lyx.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +32,8 @@ public class EmployeeController {
     public ResponseDto<Integer> createEmployee(@RequestBody EmployeeDto employeeDto){
         return ResponseDto.getSuccessResponseDto(employeeService.createEmployee(employeeDto));
     }
+
+
 
 
 }

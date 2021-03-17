@@ -32,7 +32,7 @@
         where emp_id = #{empId}
     </update>
 
-    <!--根据(组名,姓名,id)条件查询员工-->
+    <!--根据(组名,真实姓名,id,账户名称，密码)条件查询员工-->
     <select id="findList" parameterType="com.lyx.dto.query.EmployeeQueryDto" resultType="com.lyx.entity.Employee">
         SELECT e.emp_id,e.username,e.password,e.realname,e.post,e.team_id
         FROM t_employee e
@@ -40,13 +40,19 @@
         ON e.team_id = t.team_id
         <where>
             <if test="teamName != null and teamName != ''">
-                AND t.name like CONCAT('%',#{teamName},'%')
+                AND t.team_name like CONCAT('%',#{teamName},'%')
             </if>
             <if test="realName != null and realName != ''">
                 AND e.realname like CONCAT('%',#{realName},'%')
             </if>
             <if test="empId != null and empId != ''">
                 AND e.emp_id = #{empId}
+            </if>
+            <if test="username != null and username != ''">
+                AND e.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND e.password = #{password}
             </if>
         </where>
     </select>

@@ -1,10 +1,11 @@
-package com.lyx.service;
+package com.lyx.service.Impl;
 
 import com.lyx.dao.BugTicketLineDao;
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dto.BugTicketLineDto;
 import com.lyx.entity.BugTicketLine;
 import com.lyx.entity.Employee;
+import com.lyx.service.BugTicketLineService;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class BugTicketLineServiceImpl implements BugTicketLineService{
+public class BugTicketLineServiceImpl implements BugTicketLineService {
     @Autowired
     BugTicketLineDao bugTicketLineDao;
     @Autowired

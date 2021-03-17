@@ -9,7 +9,8 @@
     </insert>
 
     <!--创建者保存缺陷追踪表-->
-    <insert id="submitSave" parameterType="com.lyx.entity.BugTicket">
+    <insert id="submitSave" parameterType="com.lyx.entity.BugTicket"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
         insert into t_bug_ticket(bug_id,team_id,title,description,status_code,status_name,bug_level,submit_id,submit_name,submit_time)
         values(#{bugId},#{teamId},#{title},#{description},#{statusCode},#{statusName},#{bugLevel},#{submitId},#{submitName},#{submitTime})
     </insert>

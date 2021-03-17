@@ -24,6 +24,6 @@ public class ResponseDto<T> implements Serializable {
     }
 
     public static <T> ResponseDto<T> getFailResponseDto(T data) {
-        return new ResponseDto<>("002","操作失败",data);
+        return new ResponseDto<>("406","操作失败",data);
     }
 }

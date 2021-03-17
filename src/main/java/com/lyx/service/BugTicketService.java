@@ -26,4 +26,7 @@ public interface BugTicketService {
 
     //根据(题目，指派人，状态,小组id)条件查询缺陷追踪表
     List<BugTicket> findList(BugTicketQueryDto queryDto);
+
+    //创建缺陷追踪表
+    Integer createBugTicket(BugTicketDto bugTicketDto);
 }

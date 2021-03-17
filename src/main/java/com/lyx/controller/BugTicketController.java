@@ -1,5 +1,6 @@
 package com.lyx.controller;
 
+import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.entity.BugTicket;
@@ -21,5 +22,11 @@ public class BugTicketController {
     @PostMapping("/findList")
     public ResponseDto<List<BugTicket>> findList(@RequestBody BugTicketQueryDto query) {
         return ResponseDto.getSuccessResponseDto(bugTicketService.findList(query));
+    }
+
+    //创建缺陷追踪表
+    @PostMapping("/createBugTicket")
+    public ResponseDto<Integer> createBugTicket(@RequestBody BugTicketDto bugTicketDto){
+        return ResponseDto.getSuccessResponseDto(bugTicketService.createBugTicket(bugTicketDto));
     }
 }

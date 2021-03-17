@@ -21,7 +21,7 @@ public interface BugTicketDao {
      * 创建者保存缺陷追踪表
      * @param bugTicket
      */
-    void submitSave(BugTicket bugTicket);
+    Integer submitSave(BugTicket bugTicket);
 
     /**
      * 查询所有缺陷追踪表
