@@ -15,18 +15,11 @@ public interface CommonConstant {
     String FRONTEND_DEVELOPER = "前端开发";
     String TEST = "测试";
 
-    //缺陷跟踪表的状态码
-    String SUBMITTED = "submitted";
-    String CHECKED = "checked";
-    String DEALT = "dealt";
-    String CLOSED = "closed";
+    //缺陷跟踪表的状态
+    String SUBMITTED = "已提交";
+    String CHECKED = "已审核";
+    String DEALT = "已解决";
+    String CLOSED = "已关闭";
 
-    default Map<String, String> getStatusMap() {
-        Map<String, String> statusMap = new HashMap<>();
-        statusMap.put(CommonConstant.SUBMITTED, "已提交");
-        statusMap.put(CommonConstant.CHECKED, "已审核");
-        statusMap.put(CommonConstant.DEALT, "已解决");
-        statusMap.put(CommonConstant.CLOSED, "已关闭");
-        return statusMap;
-    }
+
 }

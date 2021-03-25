@@ -18,4 +18,5 @@ public class Employee {
     private String realName;
     private String post;
     private String teamId;
+    private String teamName;
 }

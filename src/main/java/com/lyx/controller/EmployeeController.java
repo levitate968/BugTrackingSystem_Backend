@@ -9,6 +9,7 @@ import com.lyx.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -22,7 +23,9 @@ public class EmployeeController {
 
     //根据(组名,姓名,id)条件查询员工
     @PostMapping("/findList")
-    public ResponseDto<List<Employee>> findList(@RequestBody EmployeeQueryDto query) {
+    public ResponseDto<List<Employee>> findList(@RequestBody EmployeeQueryDto query, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin","*");
+        //System.out.println(query.toString());
         return ResponseDto.getSuccessResponseDto(employeeService.findList(query));
     }
 

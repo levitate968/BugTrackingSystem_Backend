@@ -2,11 +2,17 @@ package com.lyx.service.Impl;
 
 import com.lyx.dao.BugTicketDao;
 import com.lyx.dao.EmployeeDao;
+import com.lyx.dao.TeamDao;
 import com.lyx.dto.BugTicketDto;
+import com.lyx.dto.EmployeeDto;
 import com.lyx.dto.query.BugTicketQueryDto;
+import com.lyx.dto.query.EmployeeQueryDto;
+import com.lyx.dto.query.TeamQueryDto;
 import com.lyx.entity.BugTicket;
 import com.lyx.entity.Employee;
+import com.lyx.entity.Team;
 import com.lyx.service.BugTicketService;
+import com.lyx.utils.CommonConstant;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +30,8 @@ public class BugTicketServiceImpl implements BugTicketService {
     private BugTicketDao bugTicketDao;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private TeamDao teamDao;
 
     @Override
     @Transactional
@@ -85,9 +93,40 @@ public class BugTicketServiceImpl implements BugTicketService {
     @Override
     @Transactional
     public Integer createBugTicket(BugTicketDto bugTicketDto) {
-        //TODO
+        //获取员工姓名
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(bugTicketDto.getUserId());
+        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+        Employee employee=employees.get(0);
+        //获取员工所在组
+        TeamQueryDto teamQueryDto=new TeamQueryDto();
+        teamQueryDto.setTeamId(employee.getTeamId());
+        List<Team> teams= teamDao.findList(teamQueryDto);
+        Team team=teams.get(0);
+        //获取组长姓名
+        employeeQueryDto.setEmpId(team.getTeamLeaderId());
+        List<Employee> teamLeaders=employeeDao.findList(employeeQueryDto);
+        Employee teamLeader=teamLeaders.get(0);
+
         BugTicket bugTicket = new BugTicket();
-        //bugTicketDao.createBugTicket(bugTicket);
+        bugTicket.setBugId(IdGeneratorUtil.generateId());
+        bugTicket.setTeamId(team.getTeamId());
+        bugTicket.setTitle(bugTicketDto.getTitle());
+        bugTicket.setDescription(bugTicketDto.getDescription());
+        //bugTicket.setStatusCode(CommonConstant.SUBMITTED);
+        bugTicket.setStatusName(CommonConstant.SUBMITTED);
+        bugTicket.setBugLevel(bugTicketDto.getBugLevel());
+        bugTicket.setSubmitId(employee.getEmpId());
+        bugTicket.setSubmitName(employee.getRealName());
+        bugTicket.setSubmitTime(new Date());
+        //审核人是该小组组长
+        bugTicket.setCheckId(teamLeader.getEmpId());
+        bugTicket.setCheckName(teamLeader.getRealName());
+        //处理人是审核人，即小组组长
+        bugTicket.setDesignateId(teamLeader.getEmpId());
+        bugTicket.setDesignateName(teamLeader.getRealName());
+
+
         return bugTicketDao.submitSave(bugTicket);
     }
 }

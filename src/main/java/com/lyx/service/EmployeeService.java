@@ -8,6 +8,7 @@ import com.lyx.entity.Employee;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Map;
 
 public interface EmployeeService {
     //查找所有员工
@@ -29,5 +30,5 @@ public interface EmployeeService {
     ResponseDto<String> createEmployee (EmployeeDto employeeDto);
 
     //用户登录
-    ResponseDto<String> login(EmployeeQueryDto employeeDto, HttpServletRequest request);
+    ResponseDto<Map> login(EmployeeQueryDto employeeDto);
 }

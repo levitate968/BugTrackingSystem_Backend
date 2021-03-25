@@ -9,6 +9,7 @@ import com.lyx.service.BugTicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -20,13 +21,17 @@ public class BugTicketController {
 
     //根据(题目，指派人，状态,小组id)条件查询缺陷追踪表
     @PostMapping("/findList")
-    public ResponseDto<List<BugTicket>> findList(@RequestBody BugTicketQueryDto query) {
+    public ResponseDto<List<BugTicket>> findList(@RequestBody BugTicketQueryDto query, HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin","*");
+        //System.out.println(bugTicketService.findList(query).toString());
         return ResponseDto.getSuccessResponseDto(bugTicketService.findList(query));
     }
+
 
     //创建缺陷追踪表
     @PostMapping("/createBugTicket")
     public ResponseDto<Integer> createBugTicket(@RequestBody BugTicketDto bugTicketDto){
+        System.out.println(bugTicketDto.toString());
         return ResponseDto.getSuccessResponseDto(bugTicketService.createBugTicket(bugTicketDto));
     }
 }

@@ -23,7 +23,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Transactional
@@ -84,6 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setRealName(employeeDto.getRealName());
         employee.setPost(employeeDto.getPost());
         employee.setTeamId(employeeDto.getTeamId());
+        employee.setTeamName(employeeDto.getTeamName());
 
         //查询该用户名是否已经注册
         EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
@@ -143,25 +146,28 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public ResponseDto<String> login(EmployeeQueryDto employeeDto, HttpServletRequest request) {
+    public ResponseDto<Map> login(EmployeeQueryDto employeeDto) {
         //登录逻辑函数
         String msg;
+        Map<String,Object> map=new HashMap<>();
         try {
             List<Employee> list = employeeDao.findList(employeeDto);
             if (list.size() == 1) {
                 msg = list.get(0).getUsername() + "登录成功，欢迎您!";
-                HttpSession session=request.getSession();
-                session.setAttribute("employee",list.get(0));
-                session.setAttribute("login",true);
-                return ResponseDto.getSuccessResponseDto(msg);
+                map.put("msg",msg);
+                map.put("employee",list.get(0));
+                System.out.println(map.get("msg"));
+                return ResponseDto.getSuccessResponseDto(map);
             } else {
                 msg = "用户名或密码错误";
-                return ResponseDto.getFailResponseDto(msg);
+                map.put("msg",msg);
+                return ResponseDto.getFailResponseDto(map);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
-            return ResponseDto.getFailResponseDto(e.getMessage());
+            map.put("msg",e.getMessage());
+            return ResponseDto.getFailResponseDto(map);
         }
     }
 
