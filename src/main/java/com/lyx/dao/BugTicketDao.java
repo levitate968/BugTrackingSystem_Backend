@@ -54,4 +54,10 @@ public interface BugTicketDao {
      * @return
      */
     List<BugTicket> findList(BugTicketQueryDto queryDto);
+
+    /**
+     * 更新指派后的缺陷追踪表
+     * @param bugTicket
+     */
+    void updateCheckList(BugTicket bugTicket);
 }

@@ -34,4 +34,10 @@ public class BugTicketController {
         System.out.println(bugTicketDto.toString());
         return ResponseDto.getSuccessResponseDto(bugTicketService.createBugTicket(bugTicketDto));
     }
+
+    //小组组长指派处理人处理缺陷追踪表
+    @PostMapping("/checkBugTicket")
+    public ResponseDto<String> checkBugTicket(@RequestBody BugTicketDto bugTicketDto){
+        return  bugTicketService.checkBugTicket(bugTicketDto);
+    }
 }

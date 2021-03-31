@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class BugTicketQueryDto {
+    private String bugId;
     private String title;
     private String designateName;
     private String statusName;

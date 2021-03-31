@@ -1,6 +1,7 @@
 package com.lyx.service;
 
 import com.lyx.dto.BugTicketDto;
+import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.BugTicket;
@@ -29,4 +30,7 @@ public interface BugTicketService {
 
     //创建缺陷追踪表
     Integer createBugTicket(BugTicketDto bugTicketDto);
+
+    //小组组长指派处理人处理缺陷追踪表
+    ResponseDto<String> checkBugTicket (BugTicketDto bugTicketDto);
 }

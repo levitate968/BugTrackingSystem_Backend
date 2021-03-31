@@ -5,6 +5,7 @@ import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.EmployeeDto;
+import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.dto.query.TeamQueryDto;
@@ -21,7 +22,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 @Transactional
@@ -128,5 +128,46 @@ public class BugTicketServiceImpl implements BugTicketService {
 
 
         return bugTicketDao.submitSave(bugTicket);
+    }
+
+    @Override
+    public ResponseDto<String> checkBugTicket(BugTicketDto bugTicketDto) {
+        //获取缺陷清单
+        BugTicketQueryDto bugTicketQueryDto=new BugTicketQueryDto();
+        bugTicketQueryDto.setBugId(bugTicketDto.getBugId());
+        List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
+        BugTicket bugTicket=bugTickets.get(0);
+
+        //获取指派人
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setRealName(bugTicket.getDesignateName());
+        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+
+        if(employees.isEmpty()){
+            //如果不存在这个人
+            String msg="您输入的用户不存在，请重新输入";
+            return ResponseDto.getFailResponseDto(msg);
+        }else{
+            //判断指派人是否是本组的
+            String teamId=bugTicketDto.getTeamId();
+            if(teamId.equals(employees.get(0).getTeamId())){
+                //指派人是本组组员
+                Employee employee=employees.get(0);
+
+                bugTicket.setStatusName(CommonConstant.CHECKED);
+                bugTicket.setCheckTime(new Date());
+                bugTicket.setDealId(employee.getEmpId());
+                bugTicket.setDealName(employee.getRealName());
+                bugTicket.setDesignateId(employee.getEmpId());
+                bugTicket.setDesignateName(employee.getRealName());
+
+                bugTicketDao.updateCheckList(bugTicket);
+                String msg="操作成功";
+                return ResponseDto.getSuccessResponseDto(msg);
+            }else{
+                String msg="您输入的用户不是本组组员，请重新输入";
+                return ResponseDto.getFailResponseDto(msg);
+            }
+        }
     }
 }
