@@ -45,7 +45,6 @@ public class BugTicketServiceImpl implements BugTicketService {
         bugTicket.setTitle(bugTicketDto.getTitle());
         bugTicket.setDescription(bugTicketDto.getDescription());
         bugTicket.setStatusCode(bugTicketDto.getStatusCode());
-        //TODO 从静态文件中对照StatusCode获取StatusName
         bugTicket.setBugLevel(bugTicketDto.getBugLevel());
         bugTicket.setSubmitId(employee.getEmpId());
         bugTicket.setSubmitName(employee.getRealName());
@@ -140,7 +139,7 @@ public class BugTicketServiceImpl implements BugTicketService {
 
         //获取指派人
         EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
-        employeeQueryDto.setRealName(bugTicket.getDesignateName());
+        employeeQueryDto.setRealName(bugTicketDto.getDesignateName());
         List<Employee> employees=employeeDao.findList(employeeQueryDto);
 
         if(employees.isEmpty()){

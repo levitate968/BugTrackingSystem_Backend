@@ -67,4 +67,10 @@
         where bug_id = #{bugId}
     </update>
 
+    <!--更新修改后的缺陷追踪表-->
+    <update id="updateDealList" parameterType="com.lyx.entity.BugTicket">
+        update t_bug_ticket set status_name=#{statusName},deal_time=#{dealTime}
+        where bug_id = #{bugId}
+    </update>
+
 </mapper>

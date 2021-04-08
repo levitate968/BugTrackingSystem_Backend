@@ -1,11 +1,17 @@
 package com.lyx.service.Impl;
 
+import com.lyx.dao.BugTicketDao;
 import com.lyx.dao.BugTicketLineDao;
 import com.lyx.dao.EmployeeDao;
+import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.BugTicketLineDto;
+import com.lyx.dto.query.BugTicketQueryDto;
+import com.lyx.dto.query.EmployeeQueryDto;
+import com.lyx.entity.BugTicket;
 import com.lyx.entity.BugTicketLine;
 import com.lyx.entity.Employee;
 import com.lyx.service.BugTicketLineService;
+import com.lyx.utils.CommonConstant;
 import com.lyx.utils.IdGeneratorUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,39 +27,37 @@ public class BugTicketLineServiceImpl implements BugTicketLineService {
     BugTicketLineDao bugTicketLineDao;
     @Autowired
     private EmployeeDao employeeDao;
+    @Autowired
+    private BugTicketDao bugTicketDao;
 
     @Override
-    public void save(BugTicketLineDto bugTicketLineDto) {
-        String userId = bugTicketLineDto.getUserId();
-        Employee employee = employeeDao.findById(userId);
+    public Integer dealBugTicket(String bugId, String note) {
+        //获取缺陷清单
+        BugTicketQueryDto bugTicketQueryDto=new BugTicketQueryDto();
+        bugTicketQueryDto.setBugId(bugId);
+        List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
+        BugTicket bugTicket=bugTickets.get(0);
 
+        //更新缺陷清单
+        bugTicket.setStatusName(CommonConstant.DEALT);
+        bugTicket.setDealTime(new Date());
+        bugTicketDao.updateDealList(bugTicket);
+
+        //获取添加人
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(bugTicket.getDealId());
+        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+        Employee employee=employees.get(0);
+
+        //创建缺陷清单备注
         BugTicketLine bugTicketLine=new BugTicketLine();
         bugTicketLine.setBugLineId(IdGeneratorUtil.generateId());
-        bugTicketLine.setBugId(bugTicketLineDto.getBugId());
-        bugTicketLine.setNote(bugTicketLineDto.getNote());
-        bugTicketLine.setAddId(userId);
+        bugTicketLine.setBugId(bugTicket.getBugId());
+        bugTicketLine.setNote(note);
+        bugTicketLine.setAddId(employee.getEmpId());
         bugTicketLine.setAddName(employee.getRealName());
         bugTicketLine.setAddTime(new Date());
 
-        bugTicketLineDao.save(bugTicketLine);
-    }
-
-    @Override
-    public List<BugTicketLine> findAll() {
-        return bugTicketLineDao.findAll();
-    }
-
-    @Override
-    public void delete(String id) {
-        bugTicketLineDao.delete(id);
-    }
-
-    @Override
-    public void update(BugTicketLineDto bugTicketLineDto) {
-        BugTicketLine bugTicketLine=new BugTicketLine();
-        bugTicketLine.setBugLineId(bugTicketLineDto.getBugLineId());
-        bugTicketLine.setNote(bugTicketLineDto.getNote());
-
-        bugTicketLineDao.update(bugTicketLine);
+        return bugTicketLineDao.create(bugTicketLine);
     }
 }

@@ -7,15 +7,6 @@ import java.util.List;
 
 @Mapper
 public interface BugTicketLineDao {
-    //保存
-    void save(BugTicketLine bugTicketLine);
-
-    //查找所有
-    List<BugTicketLine> findAll();
-
-    //根据id删除
-    void delete(String id);
-
-    //更新
-    void update(BugTicketLine bugTicketLine);
+    //创建缺陷清单备注
+    Integer create(BugTicketLine bugTicketLine);
 }

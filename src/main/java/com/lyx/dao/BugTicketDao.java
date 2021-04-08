@@ -60,4 +60,10 @@ public interface BugTicketDao {
      * @param bugTicket
      */
     void updateCheckList(BugTicket bugTicket);
+
+    /**
+     * 更新修改后的缺陷追踪表
+     * @param bugTicket
+     */
+    void updateDealList(BugTicket bugTicket);
 }

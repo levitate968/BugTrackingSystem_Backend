@@ -1,8 +1,5 @@
 package com.lyx.utils;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public interface CommonConstant {
     //bug紧急程度
     String BUG_LEVEL_HINDER = "阻碍";
