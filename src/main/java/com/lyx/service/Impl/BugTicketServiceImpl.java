@@ -1,15 +1,16 @@
 package com.lyx.service.Impl;
 
 import com.lyx.dao.BugTicketDao;
+import com.lyx.dao.BugTicketLineDao;
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.BugTicketDto;
-import com.lyx.dto.EmployeeDto;
 import com.lyx.dto.ResponseDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.dto.query.TeamQueryDto;
 import com.lyx.entity.BugTicket;
+import com.lyx.entity.BugTicketLine;
 import com.lyx.entity.Employee;
 import com.lyx.entity.Team;
 import com.lyx.service.BugTicketService;
@@ -32,6 +33,8 @@ public class BugTicketServiceImpl implements BugTicketService {
     private EmployeeDao employeeDao;
     @Autowired
     private TeamDao teamDao;
+    @Autowired
+    private BugTicketLineDao bugTicketLineDao;
 
     @Override
     @Transactional
@@ -131,42 +134,121 @@ public class BugTicketServiceImpl implements BugTicketService {
 
     @Override
     public ResponseDto<String> checkBugTicket(BugTicketDto bugTicketDto) {
+
         //获取缺陷清单
         BugTicketQueryDto bugTicketQueryDto=new BugTicketQueryDto();
         bugTicketQueryDto.setBugId(bugTicketDto.getBugId());
         List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
         BugTicket bugTicket=bugTickets.get(0);
 
-        //获取指派人
-        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
-        employeeQueryDto.setRealName(bugTicketDto.getDesignateName());
-        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+        if(!bugTicketDto.getDesignateName().isEmpty()){
+            //指派人不为空
+            //获取指派人
+            EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+            employeeQueryDto.setRealName(bugTicketDto.getDesignateName());
+            List<Employee> employees=employeeDao.findList(employeeQueryDto);
 
-        if(employees.isEmpty()){
-            //如果不存在这个人
-            String msg="您输入的用户不存在，请重新输入";
-            return ResponseDto.getFailResponseDto(msg);
-        }else{
-            //判断指派人是否是本组的
-            String teamId=bugTicketDto.getTeamId();
-            if(teamId.equals(employees.get(0).getTeamId())){
-                //指派人是本组组员
-                Employee employee=employees.get(0);
-
-                bugTicket.setStatusName(CommonConstant.CHECKED);
-                bugTicket.setCheckTime(new Date());
-                bugTicket.setDealId(employee.getEmpId());
-                bugTicket.setDealName(employee.getRealName());
-                bugTicket.setDesignateId(employee.getEmpId());
-                bugTicket.setDesignateName(employee.getRealName());
-
-                bugTicketDao.updateCheckList(bugTicket);
-                String msg="操作成功";
-                return ResponseDto.getSuccessResponseDto(msg);
-            }else{
-                String msg="您输入的用户不是本组组员，请重新输入";
+            if(employees.isEmpty()){
+                //如果不存在这个人
+                String msg="您输入的用户不存在，请重新输入";
                 return ResponseDto.getFailResponseDto(msg);
+            }else{
+                //判断指派人是否是本组的
+                String teamId=bugTicketDto.getTeamId();
+                if(teamId.equals(employees.get(0).getTeamId())){
+                    //指派人是本组组员
+                    Employee employee=employees.get(0);
+
+                    //更新缺陷清单
+                    bugTicket.setStatusName(CommonConstant.CHECKED);
+                    bugTicket.setCheckTime(new Date());
+                    bugTicket.setDealId(employee.getEmpId());
+                    bugTicket.setDealName(employee.getRealName());
+                    bugTicket.setDesignateId(employee.getEmpId());
+                    bugTicket.setDesignateName(employee.getRealName());
+                    bugTicketDao.updateCheckList(bugTicket);
+
+                    //创建缺陷清单备注
+                    BugTicketLine bugTicketLine=new BugTicketLine();
+                    bugTicketLine.setBugLineId(IdGeneratorUtil.generateId());
+                    bugTicketLine.setBugId(bugTicket.getBugId());
+                    bugTicketLine.setNote(bugTicketDto.getNote());
+                    bugTicketLine.setAddId(employee.getEmpId());
+                    bugTicketLine.setAddName(employee.getRealName());
+                    bugTicketLine.setAddTime(new Date());
+                    bugTicketLineDao.create(bugTicketLine);
+
+                    String msg="操作成功";
+                    return ResponseDto.getSuccessResponseDto(msg);
+                }else{
+                    String msg="您输入的用户不是本组组员，请重新输入";
+                    return ResponseDto.getFailResponseDto(msg);
+                }
             }
+        }else{
+            //指派人为空
+            String msg="请输入指派人";
+            return ResponseDto.getFailResponseDto(msg);
         }
+
+
+    }
+
+    @Override
+    public Integer dealBugTicket(BugTicketDto bugTicketDto) {
+        //获取缺陷清单
+        BugTicketQueryDto bugTicketQueryDto=new BugTicketQueryDto();
+        bugTicketQueryDto.setBugId(bugTicketDto.getBugId());
+        List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
+        BugTicket bugTicket=bugTickets.get(0);
+
+        //更新缺陷清单
+        bugTicket.setStatusName(CommonConstant.DEALT);
+        bugTicket.setDealTime(new Date());
+        bugTicketDao.updateDealList(bugTicket);
+
+        //获取添加人
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(bugTicket.getDealId());
+        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+        Employee employee=employees.get(0);
+
+        //创建缺陷清单备注
+        BugTicketLine bugTicketLine=new BugTicketLine();
+        bugTicketLine.setBugLineId(IdGeneratorUtil.generateId());
+        bugTicketLine.setBugId(bugTicket.getBugId());
+        bugTicketLine.setNote(bugTicketDto.getNote());
+        bugTicketLine.setAddId(employee.getEmpId());
+        bugTicketLine.setAddName(employee.getRealName());
+        bugTicketLine.setAddTime(new Date());
+
+        return bugTicketLineDao.create(bugTicketLine);
+    }
+
+    @Override
+    public Integer rejectBugTicket(BugTicketDto bugTicketDto) {
+        //获取缺陷清单
+        BugTicketQueryDto bugTicketQueryDto=new BugTicketQueryDto();
+        bugTicketQueryDto.setBugId(bugTicketDto.getBugId());
+        List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
+        BugTicket bugTicket=bugTickets.get(0);
+        bugTicket.setStatusName(CommonConstant.REJECTED);
+
+        //获取审核人
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setRealName(bugTicket.getCheckName());
+        List<Employee> employees=employeeDao.findList(employeeQueryDto);
+        Employee employee=employees.get(0);
+
+        //创建缺陷清单备注
+        BugTicketLine bugTicketLine=new BugTicketLine();
+        bugTicketLine.setBugLineId(IdGeneratorUtil.generateId());
+        bugTicketLine.setBugId(bugTicket.getBugId());
+        bugTicketLine.setNote(bugTicketDto.getNote());
+        bugTicketLine.setAddId(employee.getEmpId());
+        bugTicketLine.setAddName(employee.getRealName());
+        bugTicketLine.setAddTime(new Date());
+        bugTicketLineDao.create(bugTicketLine);
+        return bugTicketDao.reject(bugTicket);
     }
 }

@@ -9,4 +9,11 @@
         values(#{bugLineId},#{bugId},#{note},#{addId},#{addName},#{addTime})
     </insert>
 
+    <!--查找缺陷清单备注-->
+    <select id="getBugTicketLine" parameterType="String" resultType="com.lyx.entity.BugTicketLine">
+        select bug_line_id,bug_id,note,add_id,add_name,add_time
+        from t_bug_ticket_line where bug_id = #{bugId}
+        group by add_time asc
+    </select>
+
 </mapper>

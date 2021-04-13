@@ -73,4 +73,12 @@
         where bug_id = #{bugId}
     </update>
 
+    <!--更新驳回后的缺陷追踪表-->
+    <update id="reject" parameterType="com.lyx.entity.BugTicket"
+            useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        update t_bug_ticket set status_name=#{statusName}
+        where bug_id = #{bugId}
+    </update>
+
+
 </mapper>

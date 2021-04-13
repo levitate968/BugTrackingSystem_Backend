@@ -66,4 +66,11 @@ public interface BugTicketDao {
      * @param bugTicket
      */
     void updateDealList(BugTicket bugTicket);
+
+    /**
+     * 更新驳回后的缺陷追踪表
+     * @param bugTicket
+     * @return
+     */
+    Integer reject(BugTicket bugTicket);
 }

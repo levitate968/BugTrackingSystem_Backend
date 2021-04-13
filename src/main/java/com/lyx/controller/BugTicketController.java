@@ -45,8 +45,14 @@ public class BugTicketController {
     }
 
     //处理人完成对缺陷的修改
-    @GetMapping("/dealBugTicket")
-    public ResponseDto<Integer> dealBugTicket(@RequestParam String bugId,@RequestParam String note){
-        return ResponseDto.getSuccessResponseDto(bugTicketLineService.dealBugTicket(bugId,note));
+    @PostMapping("/dealBugTicket")
+    public ResponseDto<Integer> dealBugTicket(@RequestBody BugTicketDto bugTicketDto){
+        return ResponseDto.getSuccessResponseDto(bugTicketService.dealBugTicket(bugTicketDto));
+    }
+
+    //小组组长驳回提交人提交的处理缺陷追踪表
+    @PostMapping("/rejectBugTicket")
+    public ResponseDto<Integer> rejectBugTicket(@RequestBody BugTicketDto bugTicketDto){
+        return ResponseDto.getSuccessResponseDto(bugTicketService.rejectBugTicket(bugTicketDto));
     }
 }

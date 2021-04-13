@@ -1,5 +1,7 @@
 package com.lyx.utils;
 
+import java.util.concurrent.RejectedExecutionException;
+
 public interface CommonConstant {
     //bug紧急程度
     String BUG_LEVEL_HINDER = "阻碍";
@@ -17,6 +19,7 @@ public interface CommonConstant {
     String CHECKED = "已审核";
     String DEALT = "已解决";
     String CLOSED = "已关闭";
+    String REJECTED = "已驳回";
 
 
 }

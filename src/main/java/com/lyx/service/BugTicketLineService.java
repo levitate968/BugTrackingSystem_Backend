@@ -7,7 +7,8 @@ import com.lyx.entity.BugTicketLine;
 import java.util.List;
 
 public interface BugTicketLineService {
-    //处理人完成对缺陷的修改
-    Integer dealBugTicket(String bugId, String note);
+    //获取缺陷清单备注
+    List<BugTicketLine> getBugTicketLine(BugTicketDto bugTicketDto);
+
 
 }

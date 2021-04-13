@@ -25,4 +25,5 @@ public class BugTicketDto {
     private String userId;
     private String designateId;
     private String designateName;
+    private String note;
 }

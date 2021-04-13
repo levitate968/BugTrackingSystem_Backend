@@ -33,4 +33,10 @@ public interface BugTicketService {
 
     //小组组长指派处理人处理缺陷追踪表
     ResponseDto<String> checkBugTicket (BugTicketDto bugTicketDto);
+
+    //处理人完成对缺陷的修改
+    Integer dealBugTicket(BugTicketDto bugTicketDto);
+
+    //小组组长驳回提交人提交的处理缺陷追踪表
+    Integer rejectBugTicket(BugTicketDto bugTicketDto);
 }

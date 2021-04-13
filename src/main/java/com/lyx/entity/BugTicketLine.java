@@ -20,6 +20,6 @@ public class BugTicketLine {
     private String note;
     private String addId;
     private String addName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date addTime;
 }

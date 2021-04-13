@@ -24,15 +24,15 @@ public class BugTicket {
     private String bugLevel;
     private String submitId;
     private String submitName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date submitTime;
     private String checkId;
     private String checkName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date checkTime;
     private String dealId;
     private String dealName;
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date dealTime;
     private String designateId;
     private String designateName;
