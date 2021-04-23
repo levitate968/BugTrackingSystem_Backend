@@ -26,4 +26,10 @@ public interface EmployeeDao {
 
     //根据(组名,姓名,id)条件查询员工
     List<Employee> findList(EmployeeQueryDto queryDto);
+
+    //修改密码
+    void changePassword(Employee employee);
+
+    //修改信息
+    void changeInformation(EmployeeDto employeeDto);
 }

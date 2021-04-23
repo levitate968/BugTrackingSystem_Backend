@@ -55,4 +55,5 @@ public class BugTicketController {
     public ResponseDto<Integer> rejectBugTicket(@RequestBody BugTicketDto bugTicketDto){
         return ResponseDto.getSuccessResponseDto(bugTicketService.rejectBugTicket(bugTicketDto));
     }
+
 }

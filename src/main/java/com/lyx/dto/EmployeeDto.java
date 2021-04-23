@@ -19,4 +19,5 @@ public class EmployeeDto {
     private String post;
     private String teamId;
     private String teamName;
+    private String newPassword;
 }

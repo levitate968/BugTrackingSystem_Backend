@@ -35,7 +35,21 @@ public class EmployeeController {
         return employeeService.createEmployee(employeeDto);
     }
 
+    //修改密码
+    @PostMapping("/changePassword")
+    public ResponseDto<String> changePassword(@RequestBody EmployeeDto employeeDto){
+        return employeeService.changePassword(employeeDto);
+    }
 
+    //修改个人信息
+    @PostMapping("/changeInformation")
+    public ResponseDto<String> changeInformation(@RequestBody EmployeeDto employeeDto){
+        return employeeService.changeInformation(employeeDto);
+    }
 
-
+    //获取个人信息
+    @GetMapping("/getInformation/{empId}")
+    public ResponseDto<Employee> getInformation(@PathVariable String empId){
+        return ResponseDto.getSuccessResponseDto(employeeService.getInformation(empId));
+    }
 }

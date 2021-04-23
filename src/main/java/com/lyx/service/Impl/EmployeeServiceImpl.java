@@ -85,7 +85,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setPassword(employeeDto.getPassword());
         employee.setRealName(employeeDto.getRealName());
         employee.setPost(employeeDto.getPost());
-        employee.setTeamId(employeeDto.getTeamId());
+        //employee.setTeamId(employeeDto.getTeamId());
         employee.setTeamName(employeeDto.getTeamName());
 
         //查询该用户名是否已经注册
@@ -117,6 +117,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 //如果存在这个组，创建者直接进组
                 Team team=list.get(0);
                 if(CommonConstant.TEAM_LEADER.equals(employee.getPost())){
+                    //如果注册人选择的职位是小组组长
                     if(team.getTeamLeaderId()==null){
                         //小组还没有小组组长
                         employee.setTeamId(team.getTeamId());
@@ -131,6 +132,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                         return ResponseDto.getFailResponseDto(msg);
                     }
                 }else{
+                    employee.setTeamId(team.getTeamId());
                     String msg="创建用户成功";
                     employeeDao.save(employee);
                     return ResponseDto.getSuccessResponseDto(msg);
@@ -156,7 +158,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 msg = list.get(0).getUsername() + "登录成功，欢迎您!";
                 map.put("msg",msg);
                 map.put("employee",list.get(0));
-                System.out.println(map.get("msg"));
+                //System.out.println(map.get("msg"));
                 return ResponseDto.getSuccessResponseDto(map);
             } else {
                 msg = "用户名或密码错误";
@@ -169,6 +171,145 @@ public class EmployeeServiceImpl implements EmployeeService {
             map.put("msg",e.getMessage());
             return ResponseDto.getFailResponseDto(map);
         }
+    }
+
+    @Override
+    public ResponseDto<String> changePassword(EmployeeDto employeeDto) {
+        //获取员工
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(employeeDto.getEmpId());
+        List<Employee> employeeList=employeeService.findList(employeeQueryDto);
+        Employee employee=employeeList.get(0);
+
+        if(employee.getPassword().equals(employeeDto.getPassword())){
+            //输入的旧密码和该用户密码一致
+            employee.setPassword(employeeDto.getNewPassword());
+            employeeDao.changePassword(employee);
+            String msg="修改成功!";
+            return ResponseDto.getSuccessResponseDto(msg);
+        }else{
+            //输入的旧密码错误
+            String msg="原有密码输入错误，请重新输入";
+            return ResponseDto.getFailResponseDto(msg);
+        }
+    }
+
+    @Override
+    public ResponseDto<String> changeInformation(EmployeeDto employeeDto) {
+        //获取员工
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(employeeDto.getEmpId());
+        List<Employee> employeeList=employeeService.findList(employeeQueryDto);
+        Employee employee=employeeList.get(0);
+
+        //获取小组
+        TeamQueryDto teamQueryDto=new TeamQueryDto();
+        teamQueryDto.setTeamId(employee.getTeamId());
+        List<Team> teamList=teamService.findList(teamQueryDto);
+        Team team=teamList.get(0);
+
+        if(employee.getUsername().equals(employeeDto.getUsername())){
+            //没有修改用户名
+            if("小组组长".equals(employeeDto.getPost())){
+                //该组员要当小组组长
+                if("小组组长".equals(employee.getPost())){
+                    //该组员本来就是小组组长
+                    employeeDao.changeInformation(employeeDto);
+                    String msg="修改成功";
+                    return ResponseDto.getSuccessResponseDto(msg);
+                }else{
+                    //该组员不是小组组长
+                    if(null!=team.getTeamLeaderId() && !"".equals(team.getTeamLeaderId())){
+                        //小组有组长了
+                        String msg="该小组已有小组组长，请选择其他职位";
+                        return ResponseDto.getFailResponseDto(msg);
+                    }else{
+                        //小组目前没有组长
+                        //System.out.println("why");
+                        team.setTeamLeaderId(employee.getEmpId());
+                        employeeDao.changeInformation(employeeDto);
+                        teamDao.update(team);
+                        String msg="修改成功";
+                        return ResponseDto.getSuccessResponseDto(msg);
+                    }
+                }
+            }else{
+                //该组员要当其他
+                if("小组组长".equals(employee.getPost())) {
+                    //该组员是小组组长
+                    team.setTeamLeaderId(null);
+                    teamDao.update(team);
+                    employeeDao.changeInformation(employeeDto);
+                    String msg="修改成功";
+                    return ResponseDto.getSuccessResponseDto(msg);
+                }else{
+                    //该组员是其他职位
+                    employeeDao.changeInformation(employeeDto);
+                    String msg="修改成功";
+                    return ResponseDto.getSuccessResponseDto(msg);
+                }
+            }
+        }else{
+            //修改用户名
+            EmployeeQueryDto queryDto=new EmployeeQueryDto();
+            queryDto.setEmpId(employeeDto.getUsername());
+            List<Employee> list=employeeService.findList(queryDto);
+            if(list.size()==0){
+                //修改后的名字唯一
+                if("小组组长".equals(employeeDto.getPost())){
+                    //该组员要当小组组长
+                    if("小组组长".equals(employee.getPost())){
+                        //该组员本来就是小组组长
+                        employeeDao.changeInformation(employeeDto);
+                        String msg="修改成功";
+                        return ResponseDto.getSuccessResponseDto(msg);
+                    }else{
+                        //该组员不是小组组长
+                        if(null!=team.getTeamLeaderId() && !"".equals(team.getTeamLeaderId())){
+                            //小组有组长了
+                            String msg="该小组已有小组组长，请选择其他职位";
+                            return ResponseDto.getFailResponseDto(msg);
+                        }else{
+                            //小组目前没有组长
+                            //System.out.println("why");
+                            team.setTeamLeaderId(employee.getEmpId());
+                            employeeDao.changeInformation(employeeDto);
+                            teamDao.update(team);
+                            String msg="修改成功";
+                            return ResponseDto.getSuccessResponseDto(msg);
+                        }
+                    }
+                }else{
+                    //该组员要当其他
+                    if("小组组长".equals(employee.getPost())) {
+                        //该组员是小组组长
+                        team.setTeamLeaderId(null);
+                        teamDao.update(team);
+                        employeeDao.changeInformation(employeeDto);
+                        String msg="修改成功";
+                        return ResponseDto.getSuccessResponseDto(msg);
+                    }else{
+                        //该组员是其他职位
+                        employeeDao.changeInformation(employeeDto);
+                        String msg="修改成功";
+                        return ResponseDto.getSuccessResponseDto(msg);
+                    }
+                }
+            }else{
+                //修改后的名字不唯一
+                String msg="该用户名已存在，请重新输入";
+                return ResponseDto.getFailResponseDto(msg);
+            }
+        }
+    }
+
+    @Override
+    public Employee getInformation(String empId) {
+        EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();
+        employeeQueryDto.setEmpId(empId);
+        List<Employee> list=employeeDao.findList(employeeQueryDto);
+        Employee employee=list.get(0);
+        return employee;
     }
 
 }

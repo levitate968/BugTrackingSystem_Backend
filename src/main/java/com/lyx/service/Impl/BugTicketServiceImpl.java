@@ -141,7 +141,7 @@ public class BugTicketServiceImpl implements BugTicketService {
         List<BugTicket> bugTickets=bugTicketDao.findList(bugTicketQueryDto);
         BugTicket bugTicket=bugTickets.get(0);
 
-        if(!bugTicketDto.getDesignateName().isEmpty()){
+        if(null != bugTicketDto.getDesignateName() && !"".equals(bugTicketDto.getDesignateName())){
             //指派人不为空
             //获取指派人
             EmployeeQueryDto employeeQueryDto=new EmployeeQueryDto();

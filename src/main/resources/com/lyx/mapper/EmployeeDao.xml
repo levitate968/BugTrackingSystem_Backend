@@ -28,7 +28,7 @@
 
     <!--更新员工信息-->
     <update id="update" parameterType="com.lyx.entity.Employee">
-        update t_employee set realname=#{realName},password=#{password},post=#{post}
+        update t_employee set realname=#{realname},password=#{password},post=#{post}
         where emp_id = #{empId}
     </update>
 
@@ -56,4 +56,16 @@
             </if>
         </where>
     </select>
+
+    <!--修改密码-->
+    <update id="changePassword" parameterType="com.lyx.entity.Employee">
+        update t_employee set password=#{password}
+        where emp_id = #{empId}
+    </update>
+
+    <!--修改个人信息-->
+    <update id="changeInformation" parameterType="com.lyx.dto.EmployeeDto">
+        update t_employee set username=#{username},post=#{post}
+        where emp_id = #{empId}
+    </update>
 </mapper>

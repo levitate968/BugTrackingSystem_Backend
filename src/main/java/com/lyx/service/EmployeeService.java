@@ -27,8 +27,17 @@ public interface EmployeeService {
     List<Employee> findList(EmployeeQueryDto queryDto);
 
     //新建用户
-    ResponseDto<String> createEmployee (EmployeeDto employeeDto);
+    ResponseDto<String> createEmployee(EmployeeDto employeeDto);
 
     //用户登录
     ResponseDto<Map> login(EmployeeQueryDto employeeDto);
+
+    //修改密码
+    ResponseDto<String> changePassword(EmployeeDto employeeDto);
+
+    //修改个人信息
+    ResponseDto<String> changeInformation(EmployeeDto employeeDto);
+
+    //获取个人信息
+    Employee getInformation(String empId);
 }
