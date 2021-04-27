@@ -6,6 +6,7 @@ import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.ResponseDto;
+import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.dto.query.TeamQueryDto;
@@ -89,6 +90,13 @@ public class BugTicketServiceImpl implements BugTicketService {
     @Override
     public List<BugTicket> findList(BugTicketQueryDto queryDto) {
         List<BugTicket> list = bugTicketDao.findList(queryDto);
+        return list;
+    }
+
+    @Override
+    public List<BugTicket> findListByOrder(BugTicketDto bugTicketDto) {
+        String empId=bugTicketDto.getUserId();
+        List<BugTicket> list = bugTicketDao.findListByOrder(empId);
         return list;
     }
 
@@ -250,5 +258,11 @@ public class BugTicketServiceImpl implements BugTicketService {
         bugTicketLine.setAddTime(new Date());
         bugTicketLineDao.create(bugTicketLine);
         return bugTicketDao.reject(bugTicket);
+    }
+
+    @Override
+    public List<StatusChartDto> getStatusChart(BugTicketDto bugTicketDto) {
+        String teamId=bugTicketDto.getTeamId();
+        return bugTicketDao.getStatusChart(teamId);
     }
 }

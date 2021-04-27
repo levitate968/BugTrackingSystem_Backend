@@ -52,4 +52,10 @@ public class EmployeeController {
     public ResponseDto<Employee> getInformation(@PathVariable String empId){
         return ResponseDto.getSuccessResponseDto(employeeService.getInformation(empId));
     }
+
+    //获取待处理缺陷清单数量
+    @GetMapping("/getDesignateCount/{empId}")
+    public ResponseDto<Integer> getDesignateCount(@PathVariable String empId){
+        return ResponseDto.getSuccessResponseDto(employeeService.getDesignateCount(empId));
+    }
 }

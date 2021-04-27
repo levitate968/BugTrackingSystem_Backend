@@ -1,5 +1,6 @@
 package com.lyx.service.Impl;
 
+import com.lyx.dao.BugTicketDao;
 import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.EmployeeDto;
@@ -41,6 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private BugTicketDao bugTicketDao;
 
 
     @Override
@@ -310,6 +314,11 @@ public class EmployeeServiceImpl implements EmployeeService {
         List<Employee> list=employeeDao.findList(employeeQueryDto);
         Employee employee=list.get(0);
         return employee;
+    }
+
+    @Override
+    public Integer getDesignateCount(String empId) {
+        return bugTicketDao.getDesignateCount(empId);
     }
 
 }

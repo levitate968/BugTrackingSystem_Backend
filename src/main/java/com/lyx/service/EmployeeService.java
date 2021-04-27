@@ -40,4 +40,7 @@ public interface EmployeeService {
 
     //获取个人信息
     Employee getInformation(String empId);
+
+    //获取待处理缺陷清单数量
+    Integer getDesignateCount(String empId);
 }

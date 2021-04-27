@@ -1,5 +1,6 @@
 package com.lyx.dao;
 
+import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.BugTicket;
@@ -56,6 +57,13 @@ public interface BugTicketDao {
     List<BugTicket> findList(BugTicketQueryDto queryDto);
 
     /**
+     * 查询所有缺陷追踪表，并将待处理排在前面
+     * @param empId
+     * @return
+     */
+    List<BugTicket> findListByOrder(String empId);
+
+    /**
      * 更新指派后的缺陷追踪表
      * @param bugTicket
      */
@@ -73,4 +81,18 @@ public interface BugTicketDao {
      * @return
      */
     Integer reject(BugTicket bugTicket);
+
+    /**
+     * 获取待处理缺陷清单数量
+     * @param empId
+     * @return
+     */
+    Integer getDesignateCount(String empId);
+
+    /**
+     * 获取状态图表的数据
+     * @param teamId
+     * @return
+     */
+    List<StatusChartDto> getStatusChart(String teamId);
 }

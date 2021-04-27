@@ -30,6 +30,11 @@ public class BugTicketController {
         return ResponseDto.getSuccessResponseDto(bugTicketService.findList(query));
     }
 
+    //查询所有缺陷追踪表，并将待处理排在前面
+    @PostMapping("/findListByOrder")
+    public ResponseDto<List<BugTicket>> findListByOrder(@RequestBody BugTicketDto bugTicketDto) {
+        return ResponseDto.getSuccessResponseDto(bugTicketService.findListByOrder(bugTicketDto));
+    }
 
     //提出者创建缺陷追踪表
     @PostMapping("/createBugTicket")
@@ -56,4 +61,5 @@ public class BugTicketController {
         return ResponseDto.getSuccessResponseDto(bugTicketService.rejectBugTicket(bugTicketDto));
     }
 
+    //
 }

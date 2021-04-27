@@ -2,6 +2,7 @@ package com.lyx.service;
 
 import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.ResponseDto;
+import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
 import com.lyx.entity.BugTicket;
@@ -28,6 +29,9 @@ public interface BugTicketService {
     //根据(题目，指派人，状态,小组id)条件查询缺陷追踪表
     List<BugTicket> findList(BugTicketQueryDto queryDto);
 
+    //查询所有缺陷追踪表，并将待处理排在前面
+    List<BugTicket> findListByOrder(BugTicketDto bugTicketDto);
+
     //创建缺陷追踪表
     Integer createBugTicket(BugTicketDto bugTicketDto);
 
@@ -39,4 +43,7 @@ public interface BugTicketService {
 
     //小组组长驳回提交人提交的处理缺陷追踪表
     Integer rejectBugTicket(BugTicketDto bugTicketDto);
+
+    //获取状态图表的数据
+    List<StatusChartDto> getStatusChart(BugTicketDto bugTicketDto);
 }
