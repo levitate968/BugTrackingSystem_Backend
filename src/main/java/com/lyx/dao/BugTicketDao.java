@@ -1,5 +1,6 @@
 package com.lyx.dao;
 
+import com.lyx.dto.chart.ResolveNumDto;
 import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
@@ -95,4 +96,25 @@ public interface BugTicketDao {
      * @return
      */
     List<StatusChartDto> getStatusChart(String teamId);
+
+    /**
+     * 获取员工图表的x轴数据
+     * @param teamId
+     * @return
+     */
+    List<String> getXAxisData(String teamId);
+
+    /**
+     * 获取员工图表的y轴数据
+     * @param teamId
+     * @return
+     */
+    List<String> getYAxisData(String teamId);
+
+    /**
+     * 根据小组id查询组员解决bug数
+     * @param teamId
+     * @return
+     */
+    List<ResolveNumDto> queryResolveNum(String teamId);
 }

@@ -102,4 +102,42 @@
         where team_id=#{teamId}
         group by status_name
     </select>
+
+    <!--获取员工图表的x轴数据-->
+    <select id="getXAxisData" parameterType="com.lyx.entity.BugTicket" resultType="String">
+        select designate_name
+        from t_bug_ticket
+        where team_id=#{teamId} and status_name="已解决"
+        group by designate_id
+    </select>
+
+    <!--获取员工图表的y轴数据-->
+    <select id="getYAxisData" parameterType="com.lyx.entity.BugTicket" resultType="String">
+        select count(0)
+        from t_bug_ticket
+        where team_id=#{teamId} and status_name="已解决"
+        group by designate_id
+    </select>
+
+    <select id="queryResolveNum" resultType="com.lyx.dto.chart.ResolveNumDto">
+        select
+               e.realname ,
+               IFNULL(b.num,0) as countNum
+        from (
+                 SELECT DISTINCT realname, emp_id ,team_id
+                 from t_employee
+                 where team_id = #{teamId}) e
+        left join (
+            SELECT
+                count(0) num, designate_id, designate_name ,team_id
+            FROM
+                t_bug_ticket
+            WHERE
+                team_id = #{teamId}
+              and status_name = '已解决'
+            GROUP BY
+                designate_id , designate_name ,team_id) b
+        on e.emp_id = b.designate_id
+        and e.team_id = b.team_id
+    </select>
 </mapper>

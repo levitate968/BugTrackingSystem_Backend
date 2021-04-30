@@ -6,6 +6,8 @@ import com.lyx.dao.EmployeeDao;
 import com.lyx.dao.TeamDao;
 import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.ResponseDto;
+import com.lyx.dto.chart.EmployeeChartDto;
+import com.lyx.dto.chart.ResolveNumDto;
 import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -264,5 +267,14 @@ public class BugTicketServiceImpl implements BugTicketService {
     public List<StatusChartDto> getStatusChart(BugTicketDto bugTicketDto) {
         String teamId=bugTicketDto.getTeamId();
         return bugTicketDao.getStatusChart(teamId);
+    }
+
+    @Override
+    public EmployeeChartDto getEmployeeChart(BugTicketDto bugTicketDto) {
+        List<ResolveNumDto> resolveNumDtoList = bugTicketDao.queryResolveNum(bugTicketDto.getTeamId());
+        EmployeeChartDto employeeChartDto = new EmployeeChartDto();
+        employeeChartDto.setXAxisData(resolveNumDtoList.stream().map(ResolveNumDto::getRealName).collect(Collectors.toList()));
+        employeeChartDto.setYAxisData(resolveNumDtoList.stream().map(ResolveNumDto::getCountNum).collect(Collectors.toList()));
+        return employeeChartDto;
     }
 }

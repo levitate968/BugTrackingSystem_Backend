@@ -2,6 +2,7 @@ package com.lyx.service;
 
 import com.lyx.dto.BugTicketDto;
 import com.lyx.dto.ResponseDto;
+import com.lyx.dto.chart.EmployeeChartDto;
 import com.lyx.dto.chart.StatusChartDto;
 import com.lyx.dto.query.BugTicketQueryDto;
 import com.lyx.dto.query.EmployeeQueryDto;
@@ -46,4 +47,7 @@ public interface BugTicketService {
 
     //获取状态图表的数据
     List<StatusChartDto> getStatusChart(BugTicketDto bugTicketDto);
+
+    //获取员工图表的数据
+    EmployeeChartDto getEmployeeChart(BugTicketDto bugTicketDto);
 }
